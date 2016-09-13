@@ -20,11 +20,11 @@ public class FollowerRequest {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "to_user_id")
+	@JoinColumn(name = "to_user_id", nullable = false, unique = false)
 	private User toUser;
 
 	@ManyToOne
-	@JoinColumn(name = "by_user_id")
+	@JoinColumn(name = "by_user_id", nullable = false, unique = false)
 	private User byUser;
 
 	@Temporal(TemporalType.TIMESTAMP)

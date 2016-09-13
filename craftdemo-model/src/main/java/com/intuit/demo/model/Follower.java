@@ -3,26 +3,38 @@ package com.intuit.demo.model;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Embeddable
+@Entity
+@Table(name = "user_follower")
 public class Follower {
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "following_user_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "owner_user_id", nullable = false, unique = false)
+	private User ownerUser;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "following_user_id", nullable = false, unique = false)
 	private User followingUser;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", nullable = false, updatable = false)
 	private Date createdDate;
 
-	@OneToOne
-	@JoinColumn(name = "req_id")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "req_id", nullable = false, unique = false)
 	private FollowerRequest request;
 
 	public User getFollowingUser() {

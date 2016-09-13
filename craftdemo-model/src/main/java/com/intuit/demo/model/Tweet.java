@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "tweet")
 public class Tweet {
@@ -23,11 +26,13 @@ public class Tweet {
 	private String content;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "to_user_id")
+	@Fetch(FetchMode.JOIN)
+	@JoinColumn(name = "to_user_id", nullable = false)
 	private User toUser;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "by_user_id")
+	@JoinColumn(name = "by_user_id", nullable = false)
+	@Fetch(FetchMode.JOIN)
 	private User byUser;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -35,7 +40,7 @@ public class Tweet {
 	private Date creationDate;
 
 	@ManyToOne
-	@JoinColumn(name = "parent_tweet_id")
+	@JoinColumn(name = "parent_tweet_id", nullable = true)
 	private Tweet parentTweet;
 
 	public Long getId() {

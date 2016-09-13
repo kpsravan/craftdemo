@@ -2,13 +2,12 @@ package com.intuit.demo.model;
 
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,10 +23,8 @@ public class User {
 	@Column(name = "user_name", length = 50)
 	private String userName;
 
-	@ElementCollection
-	@CollectionTable(name = "user_follower", joinColumns = @JoinColumn(name = "user_id") )
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ownerUser")
 	private Set<Follower> followers;
-	private String profileImgDir;
 
 	public Long getId() {
 		return id;
@@ -68,13 +65,4 @@ public class User {
 	public void setFollowers(Set<Follower> followers) {
 		this.followers = followers;
 	}
-
-	public String getProfileImgDir() {
-		return profileImgDir;
-	}
-
-	public void setProfileImgDir(String profileImgDir) {
-		this.profileImgDir = profileImgDir;
-	}
-
 }
