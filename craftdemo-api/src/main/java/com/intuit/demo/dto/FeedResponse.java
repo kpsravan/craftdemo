@@ -1,16 +1,16 @@
 package com.intuit.demo.dto;
 
-import java.util.Collection;
+import java.util.List;
 
 public class FeedResponse {
 
-	private Collection<TweetDTO> feed;
+	private List<TweetDTO> feed;
 
-	public Collection<TweetDTO> getFeed() {
+	public List<TweetDTO> getFeed() {
 		return feed;
 	}
 
-	public void setFeed(Collection<TweetDTO> feed) {
+	public void setFeed(List<TweetDTO> feed) {
 		this.feed = feed;
 	}
 
